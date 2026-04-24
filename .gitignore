@@ -1,0 +1,14 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Maven build
+target/
+
+# TestNG reports
+test-output/
+logs/
+
+# Eclipse workspace
+.metadata/

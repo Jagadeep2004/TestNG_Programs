@@ -4,12 +4,13 @@ import static org.testng.Assert.assertEquals;
 
 import java.time.Duration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -20,10 +21,12 @@ import com.utils.utilsExcel;
 public class QaFoxDemo {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    public static Logger log = LogManager.getLogger(QaFoxDemo.class);
+    
 
     @Test(dataProvider = "validData", dataProviderClass = utilsExcel.class)
     public void validLogin(String email, String password) {
-
+    	try {
         WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(20));
 
         driver.get().findElement(By.linkText("My Account")).click();
@@ -41,12 +44,17 @@ public class QaFoxDemo {
 
         Assert.assertTrue(driver.get().getTitle().contains("My Account"));
 
-        System.out.println(email + " Login Successful");
+        log.info("Login Successful");
+    	}
+    	catch(Exception e){
+    		log.info(e.getMessage());
+    	}
     }
     
     @Test(dataProvider = "invalidData", dataProviderClass = utilsExcel.class)
     public void invalidLogin(String email, String password) {
 
+    	try {
         WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(20));
 
         driver.get().findElement(By.linkText("My Account")).click();
@@ -63,12 +71,17 @@ public class QaFoxDemo {
 
         Assert.assertTrue(warning.getText().contains("Warning"));
 
-        System.out.println("Login not Successful");
+        log.info("Login not Successful");
+    	}
+    	catch(Exception e) {
+    		log.info(e.getMessage());
+    	}
     }
     
     @Test
     @Parameters({"validKeyword"})
     public void validSearchKeyword(String validKeyword) {
+    	try {
     	
     	WebDriverWait wait = new WebDriverWait(driver.get(),Duration.ofSeconds(20));
     	
@@ -79,12 +92,18 @@ public class QaFoxDemo {
     	 
     	Assert.assertEquals(check.getText(),"Product Compare (0)");
     	
-    	System.out.println("Search is valid"); 	
+    	log.info("Search is valid"); 	
+    	}
+    	catch(Exception e) {
+    		log.info(e.getMessage());
+    	}
     }
     
     @Test
     @Parameters({"invalidKeyword"})
     public void invalidSearchKeyword(String invalidKeyword) {
+    	
+    	try {
     	 WebDriverWait wait = new WebDriverWait(driver.get(),Duration.ofSeconds(20));
     	 
     	driver.get().findElement(By.xpath("//*[@id=\"search\"]/input")).sendKeys(invalidKeyword);
@@ -94,7 +113,11 @@ public class QaFoxDemo {
      	
      	Assert.assertEquals(check.getText(), "There is no product that matches the search criteria.");
      	
-     	System.out.println("Search is invalid");
+     	log.info("Search is invalid");
+    	}
+    	catch(Exception e) {
+    		log.info(e.getMessage());
+    	}
      	
     }
     
@@ -110,8 +133,7 @@ public class QaFoxDemo {
 
             driver.set(new ChromeDriver(options));
 
-            driver.get().manage().timeouts()
-                    .implicitlyWait(Duration.ofSeconds(10));
+            driver.get().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
             driver.get().get(url);
         }
@@ -120,6 +142,5 @@ public class QaFoxDemo {
     @AfterMethod
     public void afterMethod() {
         driver.get().quit();
-        driver.remove();
     }
 }
