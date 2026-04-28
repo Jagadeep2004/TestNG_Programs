@@ -21,7 +21,7 @@ public class utilsExcel {
         return new Object[][]{
                 arrObj[0]
         };
-    }
+    }	
 
     @DataProvider(name = "invalidData", parallel = true)
     public Object[][] invalidData() throws IOException {

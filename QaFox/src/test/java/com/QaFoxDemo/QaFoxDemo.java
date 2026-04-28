@@ -18,9 +18,15 @@ import org.testng.annotations.*;
 
 import com.utils.utilsExcel;
 
+@Listeners(ListenerQAFox.class)
 public class QaFoxDemo {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    
+    public static WebDriver getDriver() {
+        return driver.get();
+    }
+    
     public static Logger log = LogManager.getLogger(QaFoxDemo.class);
     
 
@@ -42,7 +48,7 @@ public class QaFoxDemo {
 
         wait.until(ExpectedConditions.titleContains("My Account"));
 
-        Assert.assertTrue(driver.get().getTitle().contains("My Account"));
+        Assert.assertTrue(driver.get().getTitle().contains("My Accountj"));
 
         log.info("Login Successful");
     	}
