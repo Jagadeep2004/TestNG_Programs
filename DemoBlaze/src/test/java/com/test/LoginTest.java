@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest{
 	Logger logger = LogManager.getLogger(LoginTest.class);
 
 	
-	@Test(priority =1,dataProvider = "validData",dataProviderClass = utilExcel.class)
+	@Test(dataProvider = "validData",dataProviderClass = utilExcel.class)
 	public void validLoginTest(String username,String password) {
 
 	    objlogin.login(username,password);
@@ -32,15 +32,15 @@ public class LoginTest extends BaseTest{
 	    logger.info("Valid Login");
 	}
 	
-	@Test(priority = 2,dataProvider = "invalidData",dataProviderClass = utilExcel.class)
+	@Test(dataProvider = "invalidData",dataProviderClass = utilExcel.class)
 	public void invalidLoginTest(String username,String password) {
 
 	    objlogin.login(username,password);
 	    
-	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebDriverWait wait = new WebDriverWait(driver.get(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.alertIsPresent());
         
-	    Alert alert = driver.switchTo().alert();
+	    Alert alert = driver.get().switchTo().alert();
 	    
 	    String val = alert.getText();
 	    
@@ -50,12 +50,11 @@ public class LoginTest extends BaseTest{
 	    	    val.contains("User does not exist.")
 	    	);
 	    alert.accept();
-	    Assert.fail("Intentional");
 	    System.out.println("Invalid Login");
 	}
 
 	public static WebDriver getDriver() {
-		return driver;
+		return driver.get();
 	}
 	
 }

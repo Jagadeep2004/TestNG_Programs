@@ -16,21 +16,21 @@ import org.testng.annotations.AfterMethod;
 
 public class BaseTest {
 	
-	public static WebDriver driver;
+	public static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	LoginPage objlogin;
 	
   @BeforeMethod
   public void beforeClass() {
-	  driver = new ChromeDriver();
-	  driver.manage().window().maximize();
-	  driver.get("https://www.demoblaze.com/");
+	  driver.set(new ChromeDriver());
+	  driver.get().manage().window().maximize();
+	  driver.get().get("https://www.demoblaze.com/");
 	  
-	  objlogin = new LoginPage(driver);
+	  objlogin = new LoginPage(driver.get());
   }
 
   @AfterMethod
   public void afterClass() {
-	  driver.close();
+	  driver.get().close();
   }
 
 }
