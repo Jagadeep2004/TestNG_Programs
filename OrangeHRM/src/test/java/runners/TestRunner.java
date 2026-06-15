@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;
 		glue = { "stepdefinitions", "hooks" },
 
 		plugin = { "pretty", "html:target/cucumber-report.html" },
-
+		 
 		monochrome = true
 
 )
