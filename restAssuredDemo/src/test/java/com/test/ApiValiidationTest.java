@@ -14,6 +14,6 @@ public class ApiValiidationTest {
 		
 		System.out.println("Email : "+email);
 		
-		Assert.assertEquals(email,"abc@gmail.com");
+		Assert.assertEquals(email,"Sincere@april.biz");
 	}
 }
