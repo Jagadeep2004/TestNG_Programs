@@ -8,9 +8,12 @@ public class Head {
 		@Test
 		public void head() {
 			
-			Response res = when().head("http://localhost:3000/trainees");
+			 when()
+			.head("http://localhost:3000/trainees")
+			.then()
+			.statusCode(200);
 			
-			Assert.assertEquals(res.getStatusCode(), 200);
+			//Assert.assertEquals(res.getStatusCode(), 200);
 			
 		}
 }

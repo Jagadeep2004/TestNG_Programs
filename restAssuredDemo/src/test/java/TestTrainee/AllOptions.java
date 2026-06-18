@@ -10,7 +10,11 @@ public class AllOptions {
 			
 			Response res = when().options("http://localhost:3000/trainees");
 			
-			Assert.assertEquals(res.getStatusCode(), 204);
+			System.out.println("Allowed Methods: " + res.getHeader("Allow"));
+			
+			res.then().statusCode(204);
+			
+			//Assert.assertEquals(res.getStatusCode(), 204);
 			
 		}
 }

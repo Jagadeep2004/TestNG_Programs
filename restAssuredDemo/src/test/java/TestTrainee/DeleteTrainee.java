@@ -8,9 +8,12 @@ public class DeleteTrainee {
 		@Test
 		public void deleteTrainee() {
 			
-			Response res = when().delete("http://localhost:3000/trainees/3");
+			when()
+			.delete("http://localhost:3000/trainees/3")
+			.then()
+			.statusCode(200);
 			
-			Assert.assertEquals(res.getStatusCode(), 200);
+			//Assert.assertEquals(res.getStatusCode(), 200);
 			
 		}
 }
