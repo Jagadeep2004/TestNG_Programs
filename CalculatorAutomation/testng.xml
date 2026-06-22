@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test thread-count="5" name="Test">
     <classes>
-      <class name="mobileAutomation.CalculatorTesting"/>
+      <class name="mobileAutomation.DataDrivenNotes"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
